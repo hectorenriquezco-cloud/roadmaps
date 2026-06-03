@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pain points · Journey del merchant · Contracargos</title>
+<style>
+  :root {
+    --primary: #171D4D;
+    --accent: #ec4899;
+    --bg: #f9fafb;
+    --card-bg: #ffffff;
+    --text: #1f2937;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --link: #3b82f6;
+    --code-bg: #f3f4f6;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  /* POC banner */
+  .poc-banner {
+    background: linear-gradient(90deg, #fbbf24, #f59e0b);
+    color: #78350f;
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 0.3px;
+  }
+
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  h1 {
+    color: var(--primary);
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 700;
+    margin: 0 0 14px;
+    line-height: 1.25;
+  }
+  h2 {
+    color: var(--primary);
+    font-size: clamp(18px, 3vw, 22px);
+    font-weight: 600;
+    margin: 36px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+  h3 {
+    color: var(--primary);
+    font-size: 17px;
+    font-weight: 600;
+    margin: 28px 0 10px;
+  }
+  h4 {
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 20px 0 8px;
+  }
+
+  p { margin: 0 0 12px; }
+
+  a {
+    color: var(--link);
+    text-decoration: none;
+  }
+  a:hover { text-decoration: underline; }
+
+  /* Lists */
+  ul, ol {
+    padding-left: 22px;
+    margin: 0 0 16px;
+  }
+  li { margin-bottom: 6px; }
+  li > strong:first-child {
+    color: var(--primary);
+  }
+
+  /* Blockquotes */
+  blockquote {
+    border-left: 4px solid var(--accent);
+    background: var(--card-bg);
+    margin: 16px 0;
+    padding: 12px 18px;
+    color: var(--text-muted);
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+  }
+  blockquote p:last-child { margin-bottom: 0; }
+
+  /* Inline code */
+  code {
+    background: var(--code-bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.88em;
+    font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+    color: #be185d;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: #f3f4f6;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+  }
+
+  /* Etapa headers — extra accent */
+  h3:has(+ ul) {
+    position: relative;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+  footer a { color: var(--primary); }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .container { padding: 20px 14px 40px; }
+    body { font-size: 14px; }
+    table { font-size: 13px; }
+    th, td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="poc-banner">
+  ⚠ Documento de proyecto · contexto interno para Risk + Front End
+</div>
+
+<div class="container">
+<h1 id="pain-points-del-journey-del-merchant-mapeo-exhaustivo-contexto-de-proyecto">Pain points del journey del merchant — mapeo exhaustivo (contexto de proyecto)</h1>
+<blockquote>
+<p>Contexto interno. Es el mapeo completo de los 24 + 2 pain points que salieron del Figma "Contracargos — User Journey Merchant" (mapeo de Front End). La versión concreta para compartir con Risk/FE vive en <a href="../product_memos/painpoints_panel_cc.html">product_memos/painpoints_panel_cc.html</a>, que agrupa estos 24+2 en 9 user stories. Este documento es la fuente de detalle y trazabilidad; el HTML es el resumen ejecutable.</p>
+<p>Regla: este mapeo NO incluye el benchmark de Mercado Pago (páginas "Bench Mercado Pago CC" del Figma), excluido por decisión del owner.</p>
+</blockquote>
+<p>Fecha de integración: 2026-06-02 · Owner: Héctor Enríquez (APM) · Insumo: User Journey Merchant — Contracargos (Figma).</p>
+<h2 id="marco-4-etapas-del-journey">Marco: 4 etapas del journey</h2>
+<p>Front End mapeó el camino de disputa del comercio en cuatro etapas e identificó las etapas 3 y 4 como las de mayor frustración, con la lectura de que se puede anticipar la experiencia con acciones desde las primeras etapas.</p>
+<ol>
+<li>Comunicación de nuevo contracargo</li>
+<li>Envío de documentación</li>
+<li>Espera de resolución (mayor frustración)</li>
+<li>Resultado (mayor frustración)</li>
+</ol>
+<h2 id="objetivos-del-merchant-del-figma">Objetivos del merchant (del Figma)</h2>
+<ul>
+<li>Comprender sus posibilidades de éxito para decidir si avanza con la disputa.</li>
+<li>Tener tranquilidad y certeza sobre el proceso que lleva Conekta.</li>
+<li>Entender los criterios usados cuando la resolución es negativa.</li>
+</ul>
+<h2 id="limitaciones-que-acotan-los-accionables">Limitaciones que acotan los accionables</h2>
+<ul>
+<li><strong>No hay app móvil.</strong> Las notificaciones no pueden ser in-app nativas; los canales válidos son panel (campanita en el header), WhatsApp y email.</li>
+<li><strong>Los bancos solo aceptan PDF.</strong> El accionable es permitir subir imagen y auto-convertirla a PDF, no aceptar otros formatos hacia el banco.</li>
+<li><strong>No hay personal suficiente</strong> para revisar uno por uno los documentos de cada merchant; favorece feedback automático sobre back-and-forth manual.</li>
+</ul>
+<h2 id="volumetria-que-justifica-agrupar-notificaciones-febrero-20-dias-habiles">Volumetría que justifica agrupar notificaciones (febrero, 20 días hábiles)</h2>
+<ul>
+<li>7,360 casos en 395 compañías.</li>
+<li>352 compañías recibieron 20 contracargos o menos en el mes (menos de uno por día).</li>
+<li>33 compañías entre 20 y 100 al mes.</li>
+<li>10 compañías más de 100 al mes.</li>
+<li>El comercio que más recibió tuvo 2,301 casos en el mes; hay comercios con más de 100 en un solo día sin ser ataque.</li>
+<li>Hoy cada contracargo se notifica de uno en uno.</li>
+</ul>
+<hr />
+<h2 id="mapeo-exhaustivo-24-pain-points-2-de-integradores">Mapeo exhaustivo (24 pain points + 2 de integradores)</h2>
+<p>Formato: ID · pain · cita del merchant (si existe) · accionable · canal · ticket. "Ticket por crear" donde no hay Jira aún.</p>
+<h3 id="etapa-1-comunicacion-de-nuevo-contracargo">Etapa 1 — Comunicación de nuevo contracargo</h3>
+<ul>
+<li><strong>PP1. Notificación solo por email; el merchant entra a la tabla para enterarse.</strong> Cita: "Nos resultaría útil tener alertas o recibir notificaciones dentro de la plataforma, para enterarnos más rápido." Accionable: campanita en el header + badge de nuevos en la pestaña "Faltan documentos" y en el menú; además WhatsApp y email. Canal: panel/notificación/email. Ticket por crear.</li>
+<li><strong>PP2. El estado "Faltan documentos" no se lee como un caso nuevo.</strong> Accionable: renombrar a "Nueva disputa" o similar. Canal: panel. Ticket por crear.</li>
+<li><strong>PP3. El email es mejorable.</strong> Accionable: acceso directo al contracargo desde el email (hoy no lo tiene); revisar el copy de los días; quitar el detalle de evidencia o dejar solo la excluyente por código; reagrupar y reducir enlaces al Help Center. Canal: email. Ticket por crear.</li>
+<li><strong>PP4. Comercios con muchos casos por día y notificación de uno en uno.</strong> Dato: hay comercios con más de 100 en un día sin ser ataque (uno con 2,301 en el mes). Accionable: sobre cierto umbral diario, agrupar en una notificación diaria ("Tienes N contracargos nuevos"), enlazada a la solapa "Faltan documentos"; individual enlazada al detalle para volúmenes normales. Canal: panel/notificación. Ticket por crear. (req 6.3)</li>
+</ul>
+<h3 id="etapa-2-envio-de-documentacion">Etapa 2 — Envío de documentación</h3>
+<ul>
+<li><strong>PP5. Solo existen dos formularios (códigos 68 y 41) para todos los tipos.</strong> Implica que en algunas disputas no se piden los items necesarios. Accionable: formulario de evidencias por código. Canal: panel. Apoyo: RE-2405, RE-2406.</li>
+<li><strong>PP6. Descripciones de inputs confusas; no sabe qué subir, por qué, ni cuáles son obligatorios/excluyentes.</strong> Citas: "No sabemos por qué nos piden esos documentos"; "La descripción de los items es confusa". Accionable: reescribir descripciones con ayuda contextual y enfatizar los esenciales. Canal: panel. Ticket por crear.</li>
+<li><strong>PP7. Solo se aceptan PDF; no puede subir imágenes.</strong> Cita: "Proceso engorroso, no puedo subir archivos de imagen". Accionable: permitir imagen y convertir a PDF automáticamente. Canal: panel. Ticket por crear.</li>
+<li><strong>PP8. El box de info adicional no comunica toda la evidencia extra que puede sumar.</strong> Cita: "Tengo mucha evidencia para sumar y no sé cómo subirla". Accionable: mejorar el box de documentación general. Canal: panel. Ticket por crear.</li>
+<li><strong>PP9. El botón "Aplicar cobertura" se interpreta como que Conekta cubre el monto.</strong> En realidad da acceso al formulario de evidencias. Accionable: renombrar a "Aplicar Representación". Canal: panel. Ticket por crear.</li>
+<li><strong>PP10. Falta transparencia sobre la evidencia excluyente por código.</strong> El código 68 (fraude) concentra cerca del 70% de los contracargos (cifra pendiente de referenciar) y el banco exige 3DS; el 41 (recurrente) exige TyC firmados por el tarjetahabiente. Sin esa pieza el caso está perdido y no se le comunica. Accionable: comunicar la evidencia excluyente por código. Canal: panel. Ticket por crear.</li>
+</ul>
+<h3 id="etapa-3-espera-de-resolucion-mayor-frustracion">Etapa 3 — Espera de resolución (mayor frustración)</h3>
+<ul>
+<li><strong>PP11. El estado queda "En revisión" sin avance visible ni fecha estimada.</strong> Citas: "Conekta no hace nada, el CC queda volando, ni sé qué pasó"; "No tengo fecha estimada de resolución"; "Tengo que estar entrando a la tabla para ver si cambió de estado". Accionable: timeline de estados + tiempo estimado de resolución. Canal: panel. Ticket por crear.</li>
+<li><strong>PP12. No hay back-and-forth: no sabe si lo que mandó está correcto o le falta algo.</strong> Cita: "Me gustaría que me alerten si subí algún doc con error o me faltó algo". Limitación: no hay personal para revisar uno por uno. Accionable: feedback automático cuando falte un mandatorio o haya error; cerrar el caso cuando falten los esenciales. Canal: panel. Ticket por crear.</li>
+<li><strong>PP13. Lock-in: una vez enviado no puede corregir un archivo ni subir otro.</strong> Accionable: permitir reenvío/edición mientras el estado sea temprano (Faltan documentos, A revisar, En revisión). Canal: panel. Ticket por crear.</li>
+<li><strong>PP14. Desconoce sus probabilidades de éxito para decidir si pelea.</strong> Citas: "Desconocemos las posibilidades de éxito"; "No sabemos si vale la pena invertir tiempo". Accionable: mostrar en el panel la probabilidad de éxito según la documentación (alto/medio/bajo o %). Canal: panel. Ticket por crear. (req 6.1)</li>
+</ul>
+<h3 id="etapa-4-resultado-mayor-frustracion">Etapa 4 — Resultado (mayor frustración)</h3>
+<ul>
+<li><strong>PP15. El estado "Perdido" no explica por qué.</strong> Cita: "Necesitan informe detallado de por qué pierden". Accionable: detallar la causa del rechazo o del éxito con el motivo del banco. Canal: panel. Ticket por crear.</li>
+<li><strong>PP16. Falta notificación del resultado.</strong> Accionable: notificar el resultado en panel, WhatsApp y email; una notificación por cada resolución. Canal: panel/notificación/email. Ticket por crear.</li>
+<li><strong>PP17. Los casos código 68 que pasaron por 3DS los gana Conekta sola y el merchant no se entera.</strong> Accionable: notificar y sumar esos casos en "Ganados"; ocultar el formulario cuando no necesita representación. Canal: panel. Ticket por crear.</li>
+<li><strong>PP18. El merchant no sabe si el pago pasó por 3DS.</strong> Los contracargos perdidos suelen ser los que el antifraude no marcó como riesgosos y por eso no pasaron por 3DS Smart. Accionable: informar si pasó por 3DS; en un caso perdido, mostrar que no pasó. Canal: panel. Ticket por crear.</li>
+<li><strong>PP19. Tabs muertos generan confusión.</strong> "Cubierto" no funciona (no hay seguro hoy) y "En revisión" en la práctica solo lo usa el equipo interno. Accionable: ocultar "Cubierto" y evaluar ocultar "En revisión". Canal: panel. Ticket por crear.</li>
+</ul>
+<h3 id="transversales-preventivas-backstage">Transversales / Preventivas / Backstage</h3>
+<ul>
+<li><strong>PP20. Help Center poco útil en contexto.</strong> El merchant sale a otra plataforma y los artículos están desactualizados (Marco y Alexa los rediseñan). Accionable: ayuda contextual embebida + actualizar artículos. Canal: panel. Ticket por crear.</li>
+<li><strong>PP21. No hay acciones preventivas ante pagos sospechosos.</strong> Accionable: sección para actuar antes del contracargo + guía de qué evidencia juntar al entregar (firmas, fotos, identificación). Canal: panel/backstage. Ticket por crear.</li>
+<li><strong>PP22. Reacción lenta ante un retrieval request (RT) del banco.</strong> Accionable: agilizar la alerta al merchant ante un RT. Canal: notificación. Ticket por crear.</li>
+<li><strong>PP23. No se representa el 100% cuando el merchant no envía documentación.</strong> Accionable: si vence el plazo sin doc, enviar al banco un paquete prearmado por Conekta. Canal: backstage. Ticket por crear.</li>
+<li><strong>PP24. Gestión de riesgo del merchant / 3DS inteligente.</strong> Accionable: protocolo interno para que Risk ajuste el antifraude (3DS Smart); asociar la tasa de contracargos del dashboard a Fortress con CTA "Tomar acciones". Canal: backstage/panel. Ticket por crear.</li>
+</ul>
+<h3 id="integradores-api-sandbox-no-es-ux-de-panel-directo">Integradores (API / Sandbox) — no es UX de panel directo</h3>
+<ul>
+<li><strong>PP-API1. Sin sandbox para probar antes del primer caso real.</strong> Ticket: RE-2440 (flujo de contracargos en Sandbox con webhook events).</li>
+<li><strong>PP-API2. Sin endpoint API público para merchants integradores.</strong> Ticket: RE-2407 (productizar Evidence API, extensión SFINX, company_id 622f7bca34089500011e219a).</li>
+</ul>
+<hr />
+<h2 id="consolidacion-en-9-user-stories-lo-que-se-comparte-en-el-html">Consolidación en 9 user stories (lo que se comparte en el HTML)</h2>
+<table>
+<thead>
+<tr>
+<th>Story</th>
+<th>Como merchant, quiero…</th>
+<th>Pain points que cubre</th>
+<th>Etapa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US1</td>
+<td>enterarme a tiempo de un contracargo nuevo por los canales que sí uso</td>
+<td>PP1, PP4</td>
+<td>1</td>
+</tr>
+<tr>
+<td>US2</td>
+<td>entender de inmediato que es un caso nuevo y qué hacer</td>
+<td>PP2, PP3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>US3</td>
+<td>saber exactamente qué evidencia subir según mi caso</td>
+<td>PP5, PP6, PP9, PP10</td>
+<td>2</td>
+</tr>
+<tr>
+<td>US4</td>
+<td>subir mi evidencia sin fricción</td>
+<td>PP7, PP8</td>
+<td>2</td>
+</tr>
+<tr>
+<td>US5</td>
+<td>ver el avance y el tiempo estimado, y poder corregir</td>
+<td>PP11, PP13</td>
+<td>3</td>
+</tr>
+<tr>
+<td>US6</td>
+<td>saber si vale la pena pelear y si lo que envié está completo</td>
+<td>PP12, PP14</td>
+<td>3</td>
+</tr>
+<tr>
+<td>US7</td>
+<td>conocer el resultado y entender el porqué</td>
+<td>PP15, PP16, PP18</td>
+<td>4</td>
+</tr>
+<tr>
+<td>US8</td>
+<td>no ver información que me confunde</td>
+<td>PP17, PP19</td>
+<td>4</td>
+</tr>
+<tr>
+<td>US9</td>
+<td>prevenir contracargos y tener soporte antes y después</td>
+<td>PP20, PP21, PP22, PP23, PP24</td>
+<td>Transversal</td>
+</tr>
+<tr>
+<td>(Integradores)</td>
+<td>probar e integrar por API</td>
+<td>PP-API1, PP-API2</td>
+<td>Fuera de panel</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mapeo-req-6">Mapeo req 6</h2>
+<ol>
+<li>Probabilidad de ganar en pantalla de panel: PP14 (US6).</li>
+<li>Limitación sin app, canales panel/WhatsApp/email: PP1, PP3, PP4, PP16, PP22.</li>
+<li>Agrupar en una notificación diaria por umbral: PP4 (US1).</li>
+</ol>
+<h2 id="tickets-relacionados">Tickets relacionados</h2>
+<ul>
+<li>RE-2405 diferenciar documentación por código; RE-2406 catálogo administrable por Risk (apoyan US3).</li>
+<li>RE-2440 sandbox de contracargos (PP-API1).</li>
+<li>RE-2407 productizar Evidence API (PP-API2).</li>
+<li>RE-2395 Anexo 8 automatizado, finalizada (el pagaré que el merchant ve como "Información del cargo").</li>
+<li>El resto de los pain points de panel: ticket por crear.</li>
+</ul>
+
+<footer>
+  Pain points journey · Contracargos · Conekta &middot;
+  <a href="./">Volver al Roadmap</a> &middot;
+  <a href="https://docs.google.com/document/d/1lzv9XaOn5yv7CqFirEaLOrZXXgM9TwSoMJ0lrIXvrxI">Product Memo v3.2</a>
+</footer>
+
+</div>
+
+</body>
+</html>

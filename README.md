@@ -22,10 +22,15 @@ Para probar la vista móvil: DevTools → toggle device toolbar → iPhone/Galax
 ### 1. Crear el repo en GitHub
 
 1. Ir a https://github.com/new
-2. **Name:** `contracargos-roadmap` (o el que prefieras)
+2. **Name:** `roadmaps` (o el que prefieras — el URL final será `https://<usuario>.github.io/<nombre-repo>/`)
 3. **Visibility:** Public (GH Pages free requiere público)
 4. **Initialize:** déjalo vacío (no agregues README ni .gitignore)
 5. Click "Create repository"
+
+### ✅ Estado actual (2026-06-02)
+
+- Repo: https://github.com/hectorenriquezco-cloud/roadmaps
+- **URL público:** https://hectorenriquezco-cloud.github.io/roadmaps/
 
 ### 2. Push del POC al repo
 
@@ -39,7 +44,7 @@ git add index.html README.md
 git commit -m "POC: roadmap responsive en GitHub Pages"
 
 # Reemplaza <usuario> y <repo> con los tuyos:
-git remote add origin https://github.com/<usuario>/<repo>.git
+git remote add origin https://github.com/hectorenriquezco-cloud/roadmaps
 git branch -M main
 git push -u origin main
 ```
