@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="description" content="POC · Roadmap de Contracargos en GitHub Pages">
-<title>POC · Roadmap Contracargos</title>
+<meta name="description" content="Roadmap de Contracargos · Conekta">
+<title>Roadmap Contracargos · Conekta</title>
 <style>
   :root {
     --primary: #171D4D;
@@ -25,7 +25,6 @@
   }
 
   * { box-sizing: border-box; }
-
   html { -webkit-text-size-adjust: 100%; }
 
   body {
@@ -33,22 +32,9 @@
     background: var(--bg);
     color: var(--text);
     margin: 0;
-    padding: 16px;
+    padding: 20px;
     line-height: 1.45;
     min-height: 100vh;
-  }
-
-  /* POC banner */
-  .poc-banner {
-    background: linear-gradient(90deg, #fbbf24, #f59e0b);
-    color: #78350f;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    text-align: center;
-    letter-spacing: 0.3px;
   }
 
   header {
@@ -57,19 +43,19 @@
   }
   h1 {
     color: var(--primary);
-    font-size: clamp(20px, 4vw, 26px);
+    font-size: clamp(22px, 4vw, 28px);
     margin: 0 0 4px;
     font-weight: 700;
   }
   .subtitle {
     color: var(--text-muted);
     font-size: clamp(12px, 2.5vw, 14px);
-    margin: 0 0 14px;
+    margin: 0 0 16px;
   }
 
   .legend {
     display: flex;
-    gap: 12px;
+    gap: 14px;
     flex-wrap: wrap;
     align-items: center;
     padding: 10px 14px;
@@ -81,11 +67,13 @@
   .legend-item { display: inline-flex; align-items: center; gap: 6px; }
   .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
   .dot.done { background: var(--done); }
+  .dot.ready { background: var(--ready); }
   .dot.progress { background: var(--progress); }
+  .dot.review { background: var(--review); }
   .dot.todo { background: var(--todo); }
   .dot.blocked { background: var(--blocked); }
 
-  /* ===== DESKTOP LAYOUT: swimlanes + quarters grid ===== */
+  /* ===== DESKTOP LAYOUT ===== */
   .roadmap {
     max-width: 1500px;
     margin: 0 auto;
@@ -94,29 +82,29 @@
     border-radius: 12px;
     overflow: hidden;
     display: grid;
-    grid-template-columns: 180px repeat(4, 1fr);
+    grid-template-columns: 200px 1fr 1fr;
   }
 
   .col-header {
     background: var(--primary);
     color: white;
-    padding: 12px 10px;
-    font-size: 13px;
+    padding: 14px 12px;
+    font-size: 14px;
     font-weight: 600;
     text-align: center;
     border-right: 1px solid rgba(255,255,255,0.08);
   }
   .col-header.now { background: #2d3567; box-shadow: inset 0 -3px 0 var(--progress); }
-  .col-header .quarter-sub { display: block; font-size: 10px; opacity: 0.7; font-weight: 400; margin-top: 2px; }
+  .col-header .quarter-sub { display: block; font-size: 11px; opacity: 0.75; font-weight: 400; margin-top: 2px; }
 
   .stream-label {
     background: var(--card-bg);
-    padding: 14px 12px;
+    padding: 16px 14px;
     border-top: 1px solid var(--border);
     border-right: 2px solid var(--border);
     display: flex;
     flex-direction: column;
-    min-height: 180px;
+    min-height: 240px;
   }
   .stream-tag {
     display: inline-block;
@@ -132,7 +120,7 @@
   .stream-tag.s1 { background: var(--s1); }
   .stream-tag.s2 { background: var(--s2); }
   .stream-tag.s3 { background: var(--s3); }
-  .stream-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .stream-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
   .stream-desc { font-size: 11px; color: var(--text-muted); line-height: 1.35; }
 
   .quarter-cell {
@@ -143,7 +131,7 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-    min-height: 180px;
+    min-height: 240px;
   }
   .quarter-cell.now { background: #fffbeb; }
   .quarter-cell:last-child { border-right: none; }
@@ -153,12 +141,14 @@
     border: 1px solid var(--border);
     border-left-width: 3px;
     border-radius: 6px;
-    padding: 7px 9px;
-    font-size: 12px;
-    line-height: 1.35;
+    padding: 8px 10px;
+    font-size: 12.5px;
+    line-height: 1.4;
   }
   .card.done { border-left-color: var(--done); }
+  .card.ready { border-left-color: var(--ready); }
   .card.progress { border-left-color: var(--progress); }
+  .card.review { border-left-color: var(--review); }
   .card.todo { border-left-color: var(--todo); }
   .card.blocked { border-left-color: var(--blocked); }
 
@@ -167,7 +157,10 @@
     font-size: 10px;
     color: var(--text-muted);
     font-weight: 600;
+    margin-bottom: 2px;
   }
+  .card-key a { color: inherit; text-decoration: none; }
+  .card-key a:hover { text-decoration: underline; }
   .card-title { color: var(--text); font-weight: 500; }
 
   .card-status {
@@ -182,36 +175,27 @@
     font-weight: 600;
   }
   .card-status.done { background: var(--done); }
+  .card-status.ready { background: var(--ready); }
   .card-status.progress { background: var(--progress); }
+  .card-status.review { background: var(--review); }
   .card-status.todo { background: var(--todo); }
   .card-status.blocked { background: var(--blocked); }
 
   footer {
     max-width: 1500px;
-    margin: 16px auto 0;
-    font-size: 11px;
+    margin: 20px auto 0;
+    font-size: 12px;
     color: var(--text-muted);
     text-align: center;
   }
-  footer code {
-    background: var(--card-bg);
-    padding: 2px 6px;
-    border-radius: 4px;
-    border: 1px solid var(--border);
-    font-size: 10px;
-  }
+  footer a { color: var(--primary); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
 
-  /* ===== MOBILE: stacks vertically, each stream becomes a section ===== */
+  /* ===== MOBILE ===== */
   @media (max-width: 768px) {
-    body { padding: 12px; }
-
-    .roadmap {
-      display: block;
-      border-radius: 8px;
-    }
-
+    body { padding: 14px; }
+    .roadmap { display: block; border-radius: 8px; }
     .col-header { display: none; }
-
     .stream-label {
       border-right: none;
       border-bottom: 1px solid var(--border);
@@ -225,7 +209,6 @@
     }
     .stream-name { color: white; font-size: 15px; }
     .stream-desc { color: rgba(255,255,255,0.8); }
-
     .quarter-cell {
       border-right: none;
       border-top: none;
@@ -246,97 +229,124 @@
     }
     .quarter-cell.now::before { color: #d97706; }
     .quarter-cell:empty { display: none; }
-
-    .card { font-size: 13px; padding: 8px 10px; }
+    .card { font-size: 13px; padding: 9px 11px; }
   }
 </style>
 </head>
 <body>
 
-<div class="poc-banner">
-  ⚠ Proof of Concept · validar deploy a GitHub Pages — datos de ejemplo, no son reales
-</div>
-
 <header>
-  <h1>Roadmap Contracargos · POC</h1>
-  <p class="subtitle">Conekta · prueba de hospedaje en GitHub Pages · responsive (desktop + mobile)</p>
+  <h1>Roadmap Contracargos</h1>
+  <p class="subtitle">Conekta · 3 frentes · <span id="item-count">…</span> iniciativas · sincronizado con el <a href="https://conekta.atlassian.net/jira/software/c/projects/RE/boards/463?issueParent=188691" target="_blank">tablero Jira</a></p>
 
   <div class="legend">
     <span class="legend-item"><span class="dot done"></span> Finalizada</span>
+    <span class="legend-item"><span class="dot ready"></span> Ready For Release</span>
+    <span class="legend-item"><span class="dot review"></span> En PR / Review</span>
     <span class="legend-item"><span class="dot progress"></span> En curso</span>
     <span class="legend-item"><span class="dot todo"></span> Por hacer</span>
-    <span class="legend-item"><span class="dot blocked"></span> Bloqueado</span>
+    <span class="legend-item"><span class="dot blocked"></span> Bloqueado externo</span>
   </div>
 </header>
 
-<div class="roadmap" id="roadmap"></div>
+<div class="roadmap" id="roadmap">
+  <div class="col-header" style="background: transparent;"></div>
+  <div class="col-header now">Q2 2026 (ahora)<span class="quarter-sub">abr – jun</span></div>
+  <div class="col-header">Q3 2026<span class="quarter-sub">jul – sep</span></div>
+</div>
 
 <footer>
-  POC generado <span id="generated-at">2026-06-02</span> · Repositorio: <code>github.com/.../contracargos-roadmap</code>
+  Memo asociado: <a href="painpoints_panel_cc.html">Pain points · Panel del comercio</a> · <a href="painpoints.html">Mapeo exhaustivo</a> · Épico Jira: <a href="https://conekta.atlassian.net/browse/RE-2145" target="_blank">RE-2145</a>
 </footer>
 
 <script>
 // ============================================================================
-// POC DATA — datos de ejemplo, no se conecta a Jira
+// DATA — iniciativas alineadas con el Product Memo Versión Final
 // ============================================================================
 
 const STREAMS = [
-  { id: 1, name: "Dentro de Conekta", tag: "s1", description: "Workers, pipelines, datos internos." },
-  { id: 2, name: "Fuera de Conekta", tag: "s2", description: "Comunicación con adquirentes." },
-  { id: 3, name: "Experiencia merchant", tag: "s3", description: "Panel, autoservicio, Evidence API." }
+  { id: 1, name: "Procesamiento dentro de Conekta", tag: "s1", description: "Workers, pipelines y datos internos. Sin dependencias externas." },
+  { id: 2, name: "Procesamiento fuera de Conekta", tag: "s2", description: "Comunicación con adquirentes. Depende de APIs/prioridades externas." },
+  { id: 3, name: "Experiencia del merchant", tag: "s3", description: "Panel, visibilidad y autoservicio. Basado en user journey de FE." }
 ];
 
-const QUARTERS = [
-  { key: "Q2", label: "Q2 2026", sub: "ahora · jun", now: true },
-  { key: "Q3", label: "Q3 2026", sub: "jul – sep" },
-  { key: "Q4", label: "Q4 2026", sub: "oct – dic" },
-  { key: "2027", label: "2027+", sub: "backlog" }
-];
+function statusClass(s) {
+  const map = {
+    "Finalizada": "done",
+    "Ready For Release": "ready",
+    "Pull Request": "review",
+    "En curso": "progress",
+    "Abierta": "todo",
+    "Por hacer": "todo",
+    "Bloqueado": "blocked"
+  };
+  return map[s] || "todo";
+}
 
 const ITEMS = [
-  // Stream 1
-  { stream: 1, quarter: "Q2", key: "RE-2395", title: "Anexo 8 automatizado", status: "done" },
-  { stream: 1, quarter: "Q2", key: "RE-2408", title: "Procesamiento SAW", status: "progress" },
-  { stream: 1, quarter: "Q3", key: "RE-2401", title: "Certificación 3DS bancos", status: "todo" },
-  { stream: 1, quarter: "Q4", key: null, title: "Migrar script a worker", status: "todo" },
+  // ========== FRENTE 1 — DENTRO DE CONEKTA (todo Q2) ==========
+  { stream: 1, quarter: "Q2", key: "RE-2395", title: "Anexo 8 (ANB) automatizado", status: "Finalizada" },
+  { stream: 1, quarter: "Q2", key: "RE-2396", title: "Historial del tarjetahabiente", status: "Pull Request" },
+  { stream: 1, quarter: "Q2", key: "RE-2401", title: "Certificación 3DS con bancos", status: "Por hacer" },
+  { stream: 1, quarter: "Q2", key: "RE-2403", title: "Integrar evidencia 3DS al pipeline", status: "Por hacer" },
+  { stream: 1, quarter: "Q2", key: "RE-2404", title: "Flujo automático 3DS + código 68", status: "Por hacer" },
+  { stream: 1, quarter: "Q2", key: "RE-2398", title: "Definir fuente oficial de TyC", status: "En curso" },
+  { stream: 1, quarter: "Q2", key: "RE-2399", title: "Integrar TyC al PDF de evidencia", status: "Por hacer" },
+  { stream: 1, quarter: "Q2", key: "RE-2408", title: "Creación de CCs desde archivo SIA (ANB)", status: "En curso" },
+  { stream: 1, quarter: "Q2", key: "RE-2406", title: "Gestión de catálogo de documentos en backoffice", status: "Por hacer" },
 
-  // Stream 2
-  { stream: 2, quarter: "Q3", key: "RE-2165", title: "Prosa/AIT — SFTP archivo CCs", status: "progress" },
-  { stream: 2, quarter: "Q4", key: null, title: "Resto adquirentes (TBD)", status: "blocked" },
+  // ========== FRENTE 2 — FUERA DE CONEKTA ==========
+  { stream: 2, quarter: "Q2", key: null, title: "Contactar resto de adquirentes (Banregio, BBVA, Banorte, Amex, Afirme)", status: "Por hacer" },
+  { stream: 2, quarter: "Q3", key: "RE-2165", title: "Prosa SFTP — Creación automática (desbloqueada en sesión 20-may)", status: "Por hacer" },
+  { stream: 2, quarter: "Q3", key: "RE-2166", title: "Prosa SFTP — Carga automática de documentación", status: "Por hacer" },
+  { stream: 2, quarter: "Q3", key: null, title: "Resto de adquirentes — bloqueado externamente (informativo)", status: "Bloqueado" },
 
-  // Stream 3
-  { stream: 3, quarter: "Q2", key: "RE-2407", title: "Productizar Evidence API", status: "todo" },
-  { stream: 3, quarter: "Q3", key: "RE-2440", title: "Sandbox webhook contracargos", status: "todo" },
-  { stream: 3, quarter: "Q3", key: null, title: "Notificación in-app (no solo email)", status: "todo" },
-  { stream: 3, quarter: "Q4", key: null, title: "Mostrar razón del banco al perder", status: "todo" },
-  { stream: 3, quarter: "2027", key: null, title: "API pública generalizada", status: "todo" }
+  // ========== FRENTE 3 — EXPERIENCIA MERCHANT ==========
+  // Q2 — quick wins (simples)
+  { stream: 3, quarter: "Q2", key: null, title: "US2 — Mejorar copy del email de notificación", status: "Por hacer" },
+  { stream: 3, quarter: "Q2", key: null, title: "US8 — Sumar 68 a ganados + ocultar tabs muertos", status: "Por hacer" },
+
+  // Q3 — más complejas
+  { stream: 3, quarter: "Q3", key: null, title: "US1 — Notificaciones multi-canal (panel, WhatsApp, email) + agrupar", status: "Por hacer" },
+  { stream: 3, quarter: "Q3", key: null, title: "US3 — Formulario por código + reescribir descripciones", status: "Por hacer" },
+  { stream: 3, quarter: "Q3", key: null, title: "US4 — Imagen→PDF auto + box de evidencia adicional", status: "Por hacer" },
+  { stream: 3, quarter: "Q3", key: null, title: "US5 — Timeline de estados + permitir editar (sin lock-in)", status: "Por hacer" },
+  { stream: 3, quarter: "Q3", key: null, title: "US6 — Probabilidad de éxito + feedback automático", status: "Por hacer" },
+  { stream: 3, quarter: "Q3", key: null, title: "US7 — Motivo del banco + notificación de resultado multi-canal", status: "Por hacer" },
+  // Integradores
+  { stream: 3, quarter: "Q3", key: "RE-2440", title: "Sandbox de Contracargos (Webhook events)", status: "Por hacer" },
+  { stream: 3, quarter: "Q3", key: "RE-2407", title: "API de Representación (Sfinx)", status: "Por hacer" }
 ];
 
 // ============================================================================
 // RENDER
 // ============================================================================
 
+const QUARTERS = [
+  { key: "Q2", label: "Q2 2026", sub: "abr – jun", now: true },
+  { key: "Q3", label: "Q3 2026", sub: "jul – sep" }
+];
+
 const root = document.getElementById("roadmap");
 
-// Empty corner cell + 4 quarter headers
-const corner = document.createElement("div");
-corner.className = "col-header";
-corner.style.background = "transparent";
-root.appendChild(corner);
+function renderCard(item) {
+  const sc = statusClass(item.status);
+  const keyLink = item.key
+    ? `<a href="https://conekta.atlassian.net/browse/${item.key}" target="_blank">${item.key}</a>`
+    : `<span>— ticket por crear</span>`;
+  return `
+    <div class="card ${sc}">
+      <div class="card-key">${keyLink}</div>
+      <div class="card-title">${item.title}</div>
+      <span class="card-status ${sc}">${item.status}</span>
+    </div>`;
+}
 
-QUARTERS.forEach(q => {
-  const h = document.createElement("div");
-  h.className = "col-header" + (q.now ? " now" : "");
-  h.innerHTML = `${q.label}<span class="quarter-sub">${q.sub}</span>`;
-  root.appendChild(h);
-});
-
-// Stream rows
 STREAMS.forEach(stream => {
   const label = document.createElement("div");
   label.className = "stream-label";
   label.innerHTML = `
-    <span class="stream-tag ${stream.tag}">Stream ${stream.id}</span>
+    <span class="stream-tag ${stream.tag}">Frente ${stream.id}</span>
     <div class="stream-name">${stream.name}</div>
     <div class="stream-desc">${stream.description}</div>`;
   root.appendChild(label);
@@ -346,20 +356,12 @@ STREAMS.forEach(stream => {
     cell.className = "quarter-cell" + (q.now ? " now" : "");
     cell.dataset.quarter = q.label;
     const items = ITEMS.filter(it => it.stream === stream.id && it.quarter === q.key);
-    items.forEach(it => {
-      const card = document.createElement("div");
-      card.className = `card ${it.status}`;
-      card.innerHTML = `
-        ${it.key ? `<div class="card-key">${it.key}</div>` : ""}
-        <div class="card-title">${it.title}</div>
-        <span class="card-status ${it.status}">${
-          { done: "Finalizada", progress: "En curso", todo: "Por hacer", blocked: "Bloqueado" }[it.status]
-        }</span>`;
-      cell.appendChild(card);
-    });
+    cell.innerHTML = items.map(renderCard).join("");
     root.appendChild(cell);
   });
 });
+
+document.getElementById("item-count").textContent = ITEMS.length;
 </script>
 
 </body>
