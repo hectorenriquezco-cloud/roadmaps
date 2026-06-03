@@ -39,7 +39,7 @@
 
   header {
     max-width: 1500px;
-    margin: 0 auto 20px;
+    margin: 0 auto 16px;
   }
   h1 {
     color: var(--primary);
@@ -53,19 +53,113 @@
     margin: 0 0 16px;
   }
 
-  .legend {
+  /* Controles: legend + search + filtros */
+  .controls {
+    max-width: 1500px;
+    margin: 0 auto 16px;
     display: flex;
-    gap: 14px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .control-row {
+    display: flex;
+    gap: 10px;
     flex-wrap: wrap;
     align-items: center;
     padding: 10px 14px;
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 8px;
-    font-size: 12px;
   }
-  .legend-item { display: inline-flex; align-items: center; gap: 6px; }
-  .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  .search-wrap {
+    flex: 1;
+    min-width: 220px;
+    position: relative;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 7px 10px 7px 32px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+    background: var(--bg);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .search-wrap input:focus { border-color: var(--primary); }
+  .search-wrap::before {
+    content: "⌕";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 16px;
+    pointer-events: none;
+  }
+  .clear-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 16px;
+    display: none;
+    padding: 2px 6px;
+  }
+  .search-wrap.has-value .clear-btn { display: block; }
+
+  .filter-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .pill {
+    padding: 5px 11px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    transition: all 0.12s;
+    white-space: nowrap;
+  }
+  .pill:hover { border-color: var(--primary); }
+  .pill.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+  .pill.s1.active { background: var(--s1); border-color: var(--s1); }
+  .pill.s2.active { background: var(--s2); border-color: var(--s2); }
+  .pill.s3.active { background: var(--s3); border-color: var(--s3); }
+
+  .legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .legend-item { display: inline-flex; align-items: center; gap: 5px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
   .dot.done { background: var(--done); }
   .dot.ready { background: var(--ready); }
   .dot.progress { background: var(--progress); }
@@ -73,7 +167,14 @@
   .dot.todo { background: var(--todo); }
   .dot.blocked { background: var(--blocked); }
 
-  /* ===== DESKTOP LAYOUT ===== */
+  .results-info {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+  .results-info b { color: var(--primary); }
+
+  /* ===== ROADMAP GRID ===== */
   .roadmap {
     max-width: 1500px;
     margin: 0 auto;
@@ -144,6 +245,11 @@
     padding: 8px 10px;
     font-size: 12.5px;
     line-height: 1.4;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.15s;
+  }
+  .card:hover {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    transform: translateY(-1px);
   }
   .card.done { border-left-color: var(--done); }
   .card.ready { border-left-color: var(--ready); }
@@ -151,6 +257,13 @@
   .card.review { border-left-color: var(--review); }
   .card.todo { border-left-color: var(--todo); }
   .card.blocked { border-left-color: var(--blocked); }
+  .card.hidden { display: none; }
+  .card mark {
+    background: #fef08a;
+    color: inherit;
+    padding: 0 1px;
+    border-radius: 2px;
+  }
 
   .card-key {
     font-family: ui-monospace, 'SF Mono', Consolas, monospace;
@@ -181,6 +294,15 @@
   .card-status.todo { background: var(--todo); }
   .card-status.blocked { background: var(--blocked); }
 
+  .empty-state {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 12px 6px;
+    text-align: center;
+    opacity: 0.6;
+  }
+
   footer {
     max-width: 1500px;
     margin: 20px auto 0;
@@ -194,6 +316,8 @@
   /* ===== MOBILE ===== */
   @media (max-width: 768px) {
     body { padding: 14px; }
+    .control-row { padding: 10px; }
+    .results-info { width: 100%; margin-left: 0; padding-top: 6px; border-top: 1px solid var(--border); }
     .roadmap { display: block; border-radius: 8px; }
     .col-header { display: none; }
     .stream-label {
@@ -238,16 +362,46 @@
 <header>
   <h1>Roadmap Contracargos</h1>
   <p class="subtitle">Conekta · 3 frentes · <span id="item-count">…</span> iniciativas · sincronizado con el <a href="https://conekta.atlassian.net/jira/software/c/projects/RE/boards/463?issueParent=188691" target="_blank">tablero Jira</a></p>
-
-  <div class="legend">
-    <span class="legend-item"><span class="dot done"></span> Finalizada</span>
-    <span class="legend-item"><span class="dot ready"></span> Ready For Release</span>
-    <span class="legend-item"><span class="dot review"></span> En PR / Review</span>
-    <span class="legend-item"><span class="dot progress"></span> En curso</span>
-    <span class="legend-item"><span class="dot todo"></span> Por hacer</span>
-    <span class="legend-item"><span class="dot blocked"></span> Bloqueado externo</span>
-  </div>
 </header>
+
+<div class="controls">
+  <div class="control-row">
+    <div class="search-wrap" id="search-wrap">
+      <input type="text" id="search" placeholder="Buscar iniciativa, ticket RE-XXXX o keyword…" autocomplete="off">
+      <button class="clear-btn" id="clear-btn" aria-label="Limpiar búsqueda">×</button>
+    </div>
+    <div class="results-info"><b id="visible-count">…</b> de <span id="total-count">…</span> visibles</div>
+  </div>
+
+  <div class="control-row">
+    <span class="filter-label">Frente</span>
+    <div class="filter-group" id="stream-filters">
+      <button class="pill" data-stream="all">Todos</button>
+      <button class="pill s1" data-stream="1">F1 · Dentro</button>
+      <button class="pill s2" data-stream="2">F2 · Fuera</button>
+      <button class="pill s3" data-stream="3">F3 · Merchant</button>
+    </div>
+  </div>
+
+  <div class="control-row">
+    <span class="filter-label">Estado</span>
+    <div class="filter-group" id="status-filters">
+      <button class="pill active" data-status="all">Todos</button>
+      <button class="pill" data-status="done">Finalizada</button>
+      <button class="pill" data-status="progress">En curso</button>
+      <button class="pill" data-status="review">En Review</button>
+      <button class="pill" data-status="todo">Por hacer</button>
+      <button class="pill" data-status="blocked">Bloqueado</button>
+    </div>
+    <div class="legend">
+      <span class="legend-item"><span class="dot done"></span> Finalizada</span>
+      <span class="legend-item"><span class="dot progress"></span> En curso</span>
+      <span class="legend-item"><span class="dot review"></span> Review</span>
+      <span class="legend-item"><span class="dot todo"></span> Por hacer</span>
+      <span class="legend-item"><span class="dot blocked"></span> Bloqueado</span>
+    </div>
+  </div>
+</div>
 
 <div class="roadmap" id="roadmap">
   <div class="col-header" style="background: transparent;"></div>
@@ -261,7 +415,7 @@
 
 <script>
 // ============================================================================
-// DATA — iniciativas alineadas con el Product Memo Versión Final
+// DATA — alineada con Product Memo Versión Final
 // ============================================================================
 
 const STREAMS = [
@@ -270,18 +424,15 @@ const STREAMS = [
   { id: 3, name: "Experiencia del merchant", tag: "s3", description: "Panel, visibilidad y autoservicio. Basado en user journey de FE." }
 ];
 
-function statusClass(s) {
-  const map = {
-    "Finalizada": "done",
-    "Ready For Release": "ready",
-    "Pull Request": "review",
-    "En curso": "progress",
-    "Abierta": "todo",
-    "Por hacer": "todo",
-    "Bloqueado": "blocked"
-  };
-  return map[s] || "todo";
-}
+const STATUS_TO_CLASS = {
+  "Finalizada": "done",
+  "Ready For Release": "ready",
+  "Pull Request": "review",
+  "En curso": "progress",
+  "Abierta": "todo",
+  "Por hacer": "todo",
+  "Bloqueado": "blocked"
+};
 
 const ITEMS = [
   // ========== FRENTE 1 — DENTRO DE CONEKTA (todo Q2) ==========
@@ -302,9 +453,11 @@ const ITEMS = [
   { stream: 2, quarter: "Q3", key: null, title: "Resto de adquirentes — bloqueado externamente (informativo)", status: "Bloqueado" },
 
   // ========== FRENTE 3 — EXPERIENCIA MERCHANT ==========
-  // Q2 — quick wins (simples)
+  // Q2 — quick wins (simples) + integradores
   { stream: 3, quarter: "Q2", key: null, title: "US2 — Mejorar copy del email de notificación", status: "Por hacer" },
   { stream: 3, quarter: "Q2", key: null, title: "US8 — Sumar 68 a ganados + ocultar tabs muertos", status: "Por hacer" },
+  { stream: 3, quarter: "Q2", key: "RE-2440", title: "Sandbox de Contracargos (Webhook events)", status: "Por hacer" },
+  { stream: 3, quarter: "Q2", key: "RE-2407", title: "API de Representación (Sfinx)", status: "Por hacer" },
 
   // Q3 — más complejas
   { stream: 3, quarter: "Q3", key: null, title: "US1 — Notificaciones multi-canal (panel, WhatsApp, email) + agrupar", status: "Por hacer" },
@@ -312,10 +465,7 @@ const ITEMS = [
   { stream: 3, quarter: "Q3", key: null, title: "US4 — Imagen→PDF auto + box de evidencia adicional", status: "Por hacer" },
   { stream: 3, quarter: "Q3", key: null, title: "US5 — Timeline de estados + permitir editar (sin lock-in)", status: "Por hacer" },
   { stream: 3, quarter: "Q3", key: null, title: "US6 — Probabilidad de éxito + feedback automático", status: "Por hacer" },
-  { stream: 3, quarter: "Q3", key: null, title: "US7 — Motivo del banco + notificación de resultado multi-canal", status: "Por hacer" },
-  // Integradores
-  { stream: 3, quarter: "Q3", key: "RE-2440", title: "Sandbox de Contracargos (Webhook events)", status: "Por hacer" },
-  { stream: 3, quarter: "Q3", key: "RE-2407", title: "API de Representación (Sfinx)", status: "Por hacer" }
+  { stream: 3, quarter: "Q3", key: null, title: "US7 — Motivo del banco + notificación de resultado multi-canal", status: "Por hacer" }
 ];
 
 // ============================================================================
@@ -329,15 +479,26 @@ const QUARTERS = [
 
 const root = document.getElementById("roadmap");
 
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
 function renderCard(item) {
-  const sc = statusClass(item.status);
+  const sc = STATUS_TO_CLASS[item.status] || "todo";
+  const searchText = ((item.key || "") + " " + item.title + " " + item.status).toLowerCase();
   const keyLink = item.key
-    ? `<a href="https://conekta.atlassian.net/browse/${item.key}" target="_blank">${item.key}</a>`
+    ? `<a href="https://conekta.atlassian.net/browse/${item.key}" target="_blank" onclick="event.stopPropagation()">${item.key}</a>`
     : `<span>— ticket por crear</span>`;
   return `
-    <div class="card ${sc}">
+    <div class="card ${sc}"
+         data-stream="${item.stream}"
+         data-status="${sc}"
+         data-search="${escapeHtml(searchText)}"
+         data-title="${escapeHtml(item.title)}">
       <div class="card-key">${keyLink}</div>
-      <div class="card-title">${item.title}</div>
+      <div class="card-title">${escapeHtml(item.title)}</div>
       <span class="card-status ${sc}">${item.status}</span>
     </div>`;
 }
@@ -345,6 +506,7 @@ function renderCard(item) {
 STREAMS.forEach(stream => {
   const label = document.createElement("div");
   label.className = "stream-label";
+  label.dataset.stream = stream.id;
   label.innerHTML = `
     <span class="stream-tag ${stream.tag}">Frente ${stream.id}</span>
     <div class="stream-name">${stream.name}</div>
@@ -355,6 +517,7 @@ STREAMS.forEach(stream => {
     const cell = document.createElement("div");
     cell.className = "quarter-cell" + (q.now ? " now" : "");
     cell.dataset.quarter = q.label;
+    cell.dataset.stream = stream.id;
     const items = ITEMS.filter(it => it.stream === stream.id && it.quarter === q.key);
     cell.innerHTML = items.map(renderCard).join("");
     root.appendChild(cell);
@@ -362,6 +525,127 @@ STREAMS.forEach(stream => {
 });
 
 document.getElementById("item-count").textContent = ITEMS.length;
+document.getElementById("total-count").textContent = ITEMS.length;
+document.getElementById("visible-count").textContent = ITEMS.length;
+
+// ============================================================================
+// FILTERS + SEARCH
+// ============================================================================
+
+let activeStream = "all";
+let activeStatus = "all";
+let searchTerm = "";
+
+function applyFilters() {
+  const cards = document.querySelectorAll(".card");
+  let visible = 0;
+  const term = searchTerm.toLowerCase().trim();
+
+  cards.forEach(card => {
+    const streamOk = activeStream === "all" || card.dataset.stream === activeStream;
+    const statusOk = activeStatus === "all" || card.dataset.status === activeStatus;
+    const searchOk = !term || card.dataset.search.includes(term);
+
+    if (streamOk && statusOk && searchOk) {
+      card.classList.remove("hidden");
+      visible++;
+      // Highlight matching substring in title
+      if (term) {
+        const title = card.dataset.title;
+        const idx = title.toLowerCase().indexOf(term);
+        if (idx >= 0) {
+          const before = escapeHtml(title.slice(0, idx));
+          const match = escapeHtml(title.slice(idx, idx + term.length));
+          const after = escapeHtml(title.slice(idx + term.length));
+          card.querySelector(".card-title").innerHTML = before + "<mark>" + match + "</mark>" + after;
+        } else {
+          card.querySelector(".card-title").textContent = title;
+        }
+      } else {
+        card.querySelector(".card-title").textContent = card.dataset.title;
+      }
+    } else {
+      card.classList.add("hidden");
+    }
+  });
+
+  document.getElementById("visible-count").textContent = visible;
+
+  // Mostrar empty state en cells sin matches (solo cuando hay filtros activos)
+  const anyFilter = activeStream !== "all" || activeStatus !== "all" || term;
+  document.querySelectorAll(".quarter-cell").forEach(cell => {
+    const visibleCards = cell.querySelectorAll(".card:not(.hidden)").length;
+    const existing = cell.querySelector(".empty-state");
+    if (existing) existing.remove();
+    if (anyFilter && visibleCards === 0 && cell.querySelectorAll(".card").length > 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.textContent = "Sin resultados con los filtros actuales";
+      cell.appendChild(empty);
+    }
+  });
+
+  // Atenuar stream-labels cuando filtras por uno
+  document.querySelectorAll(".stream-label").forEach(lbl => {
+    if (activeStream !== "all" && lbl.dataset.stream !== activeStream) {
+      lbl.style.opacity = "0.35";
+    } else {
+      lbl.style.opacity = "1";
+    }
+  });
+}
+
+// Wire filter buttons
+function wireFilters(containerId, attr, defaultValue) {
+  const buttons = document.querySelectorAll(`#${containerId} .pill`);
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const val = btn.dataset[attr];
+      if (attr === "stream") activeStream = val;
+      else if (attr === "status") activeStatus = val;
+      applyFilters();
+    });
+  });
+}
+
+// Default active: "Todos" en ambos
+document.querySelector('#stream-filters [data-stream="all"]').classList.add("active");
+
+wireFilters("stream-filters", "stream");
+wireFilters("status-filters", "status");
+
+// Wire search
+const searchInput = document.getElementById("search");
+const searchWrap = document.getElementById("search-wrap");
+const clearBtn = document.getElementById("clear-btn");
+
+searchInput.addEventListener("input", e => {
+  searchTerm = e.target.value;
+  searchWrap.classList.toggle("has-value", searchTerm.length > 0);
+  applyFilters();
+});
+
+clearBtn.addEventListener("click", () => {
+  searchInput.value = "";
+  searchTerm = "";
+  searchWrap.classList.remove("has-value");
+  searchInput.focus();
+  applyFilters();
+});
+
+// Keyboard shortcut: / para enfocar el search
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && document.activeElement !== searchInput) {
+    e.preventDefault();
+    searchInput.focus();
+  }
+  if (e.key === "Escape" && document.activeElement === searchInput) {
+    clearBtn.click();
+    searchInput.blur();
+  }
+});
 </script>
 
 </body>
