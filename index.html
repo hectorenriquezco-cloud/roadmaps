@@ -251,6 +251,46 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     transform: translateY(-1px);
   }
+
+  /* Tooltip on hover (desktop only) */
+  .card { position: relative; }
+  .card[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 10px 13px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.5;
+    width: max-content;
+    max-width: 340px;
+    z-index: 100;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+    white-space: normal;
+    pointer-events: none;
+    text-align: left;
+    font-weight: 400;
+  }
+  .card[data-tooltip]:hover::before {
+    content: "";
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--primary);
+    z-index: 100;
+    pointer-events: none;
+  }
+  /* En mobile (touch), ocultar tooltip — confuso al tocar */
+  @media (hover: none) {
+    .card[data-tooltip]:hover::after,
+    .card[data-tooltip]:hover::before { display: none; }
+  }
   .card.done { border-left-color: var(--done); }
   .card.ready { border-left-color: var(--ready); }
   .card.progress { border-left-color: var(--progress); }
@@ -436,36 +476,59 @@ const STATUS_TO_CLASS = {
 
 const ITEMS = [
   // ========== FRENTE 1 — DENTRO DE CONEKTA (todo Q2) ==========
-  { stream: 1, quarter: "Q2", key: "RE-2395", title: "Anexo 8 (ANB) automatizado", status: "Finalizada" },
-  { stream: 1, quarter: "Q2", key: "RE-2396", title: "Historial del tarjetahabiente", status: "Pull Request" },
-  { stream: 1, quarter: "Q2", key: "RE-2401", title: "Certificación 3DS con bancos", status: "Por hacer" },
-  { stream: 1, quarter: "Q2", key: "RE-2403", title: "Integrar evidencia 3DS al pipeline", status: "Por hacer" },
-  { stream: 1, quarter: "Q2", key: "RE-2404", title: "Flujo automático 3DS + código 68", status: "Por hacer" },
-  { stream: 1, quarter: "Q2", key: "RE-2398", title: "Definir fuente oficial de TyC", status: "En curso" },
-  { stream: 1, quarter: "Q2", key: "RE-2399", title: "Integrar TyC al PDF de evidencia", status: "Por hacer" },
-  { stream: 1, quarter: "Q2", key: "RE-2408", title: "Creación de CCs desde archivo SIA (ANB)", status: "En curso" },
-  { stream: 1, quarter: "Q2", key: "RE-2406", title: "Gestión de catálogo de documentos en backoffice", status: "Por hacer" },
+  { stream: 1, quarter: "Q2", key: "RE-2395", title: "Anexo 8 (ANB) automatizado", status: "Finalizada",
+    desc: "Formato fiscal/bancario obligatorio del ANB. Se autogenera al crear el contracargo, sin captura manual de Risk." },
+  { stream: 1, quarter: "Q2", key: "RE-2396", title: "Historial del tarjetahabiente", status: "Pull Request",
+    desc: "Adjunta automáticamente los cargos previos del mismo cliente en el mismo comercio. Evidencia clave para disputas no fraudulentas." },
+  { stream: 1, quarter: "Q2", key: "RE-2401", title: "Certificación 3DS con bancos", status: "Por hacer",
+    desc: "Conseguir que los bancos acepten automáticamente nuestra evidencia de autenticación 3DS. Requiere 4 escenarios × Visa+Mastercard por banco emisor." },
+  { stream: 1, quarter: "Q2", key: "RE-2403", title: "Integrar evidencia 3DS al pipeline", status: "Por hacer",
+    desc: "Una vez certificada, incluirla en el expediente automáticamente sin intervención manual." },
+  { stream: 1, quarter: "Q2", key: "RE-2404", title: "Flujo automático 3DS + código 68", status: "Por hacer",
+    desc: "Caso más común: contracargo por fraude (68) sobre cargo que sí pasó 3DS. Cierra solo sin pedir evidencia al comercio." },
+  { stream: 1, quarter: "Q2", key: "RE-2398", title: "Definir fuente oficial de TyC", status: "En curso",
+    desc: "Definir desde dónde se obtienen los Términos y Condiciones del comercio (onboarding, panel, etc) para tener una fuente consistente." },
+  { stream: 1, quarter: "Q2", key: "RE-2399", title: "Integrar TyC al PDF de evidencia", status: "Por hacer",
+    desc: "Adjuntar automáticamente los TyC del comercio al expediente, sin buscarlos a mano." },
+  { stream: 1, quarter: "Q2", key: "RE-2408", title: "Creación de CCs desde archivo SIA (ANB)", status: "En curso",
+    desc: "Procesar en lote los contracargos del archivo SAW del adquirente no bancario. Hoy se capturan uno por uno." },
+  { stream: 1, quarter: "Q2", key: "RE-2406", title: "Gestión de catálogo de documentos en backoffice", status: "Por hacer",
+    desc: "Que Risk pueda actualizar qué documentos se piden por banco y código sin pasar por ingeniería." },
 
   // ========== FRENTE 2 — FUERA DE CONEKTA ==========
-  { stream: 2, quarter: "Q2", key: null, title: "Contactar resto de adquirentes (Banregio, BBVA, Banorte, Amex, Afirme)", status: "Por hacer" },
-  { stream: 2, quarter: "Q3", key: "RE-2165", title: "Prosa SFTP — Creación automática", status: "Por hacer" },
-  { stream: 2, quarter: "Q3", key: "RE-2166", title: "Prosa SFTP — Carga automática de documentación", status: "Por hacer" },
-  { stream: 2, quarter: "Q3", key: null, title: "Resto de adquirentes — bloqueado externamente (informativo)", status: "Bloqueado" },
+  { stream: 2, quarter: "Q2", key: null, title: "Contactar resto de adquirentes (Banregio, BBVA, Banorte, Amex, Afirme)", status: "Por hacer",
+    desc: "Andrea coordina conversaciones caso por caso con cada banco. Framing: \"¿qué tendría que pasar para que nos puedas enviar los CCs en un canal automatizable, similar a lo que ya hicimos con Prosa?\"" },
+  { stream: 2, quarter: "Q3", key: "RE-2165", title: "Prosa SFTP — Creación automática", status: "Por hacer",
+    desc: "Procesar contracargos del SFTP de Prosa automáticamente. Ya está desbloqueada y entra en el flujo apenas Prosa habilite el canal." },
+  { stream: 2, quarter: "Q3", key: "RE-2166", title: "Prosa SFTP — Carga automática de documentación", status: "Por hacer",
+    desc: "Cargar automáticamente la documentación de representación al canal SFTP de Prosa. Depende de tener el SFTP listo (proyecto en curso con Prosa, ETA ~ago/sep)." },
+  { stream: 2, quarter: "Q3", key: null, title: "Resto de adquirentes — bloqueado externamente (informativo)", status: "Bloqueado",
+    desc: "Pendiente de la respuesta de cada banco sobre canales de automatización. ETA informativo: depende del orden en que los bancos prioricen." },
 
   // ========== FRENTE 3 — EXPERIENCIA MERCHANT ==========
   // Q2 — quick wins (simples) + integradores
-  { stream: 3, quarter: "Q2", key: null, title: "US2 — Mejorar copy del email de notificación", status: "Por hacer" },
-  { stream: 3, quarter: "Q2", key: null, title: "US8 — Sumar 68 a ganados + ocultar tabs muertos", status: "Por hacer" },
-  { stream: 3, quarter: "Q2", key: "RE-2440", title: "Sandbox de Contracargos (Webhook events)", status: "Por hacer" },
-  { stream: 3, quarter: "Q2", key: "RE-2407", title: "API de Representación (Sfinx)", status: "Por hacer" },
+  { stream: 3, quarter: "Q2", key: null, title: "US2 — Mejorar body del email de notificación", status: "Por hacer",
+    desc: "Renombrar el estado \"Faltan documentos\" a \"Nueva disputa\". Mejorar el correo: acceso directo al caso, copy claro de los días disponibles, menos enlaces externos, sólo la evidencia excluyente por código." },
+  { stream: 3, quarter: "Q2", key: null, title: "US8 — Mejoras en panel de contracargos", status: "Por hacer",
+    desc: "Ocultar la pestaña \"Cubierto\" mientras no exista el seguro. Evaluar ocultar \"En revisión\" (uso interno). Ocultar el formulario cuando el caso no necesita representación. Sumar 68 ganados a la pestaña Ganados sólo si es automatizable (a confirmar con Risk)." },
+  { stream: 3, quarter: "Q2", key: "RE-2440", title: "Sandbox de Contracargos (Webhook events)", status: "Por hacer",
+    desc: "Habilitar el flujo de contracargos en sandbox con webhook events, para que merchants integradores prueben end-to-end antes de producción." },
+  { stream: 3, quarter: "Q2", key: "RE-2407", title: "API de Representación (Sfinx)", status: "Por hacer",
+    desc: "Productizar la Evidence API para uso público de merchants integradores. Extiende lo que ya hicimos para SFINX al resto del ecosistema." },
+  { stream: 3, quarter: "Q2", key: null, title: "US3 — Formulario por código + reescribir descripciones", status: "Por hacer",
+    desc: "Formulario por código de contracargo (no el mismo set para todos). Reescribir descripciones con ayuda contextual. Comunicar la evidencia excluyente por código (68 exige 3DS, 41 exige TyC firmados). Apoyo: RE-2405, RE-2406." },
 
   // Q3 — más complejas
-  { stream: 3, quarter: "Q3", key: null, title: "US1 — Notificaciones multi-canal (panel, WhatsApp, email) + agrupar", status: "Por hacer" },
-  { stream: 3, quarter: "Q3", key: null, title: "US3 — Formulario por código + reescribir descripciones", status: "Por hacer" },
-  { stream: 3, quarter: "Q3", key: null, title: "US4 — Imagen→PDF auto + box de evidencia adicional", status: "Por hacer" },
-  { stream: 3, quarter: "Q3", key: null, title: "US5 — Timeline de estados + permitir editar (sin lock-in)", status: "Por hacer" },
-  { stream: 3, quarter: "Q3", key: null, title: "US6 — Probabilidad de éxito + feedback automático", status: "Por hacer" },
-  { stream: 3, quarter: "Q3", key: null, title: "US7 — Motivo del banco + notificación de resultado multi-canal", status: "Por hacer" }
+  { stream: 3, quarter: "Q3", key: null, title: "US1 — Notificaciones multi-canal (panel, WhatsApp, email) + agrupar", status: "Por hacer",
+    desc: "Avisar en panel (campanita en header + badge en la pestaña), WhatsApp y email. Sobre cierto umbral diario (10 comercios con >100 CCs/día), agrupar en una sola notificación al día." },
+  { stream: 3, quarter: "Q3", key: null, title: "US4 — Imagen→PDF auto + box de evidencia adicional", status: "Por hacer",
+    desc: "Permitir subir imagen y convertirla a PDF automáticamente (los bancos solo aceptan PDF). Mejorar el box de evidencia adicional para indicar qué más se puede sumar." },
+  { stream: 3, quarter: "Q3", key: null, title: "US5 — Timeline de estados + permitir editar (sin lock-in)", status: "Por hacer",
+    desc: "Mostrar un timeline de estados con el tiempo estimado de resolución. Permitir reenviar o editar documentación mientras el estado sea temprano (Nueva disputa, A revisar, En revisión), en lugar del lock-in actual." },
+  { stream: 3, quarter: "Q3", key: null, title: "US6 — Probabilidad de éxito + feedback automático", status: "Por hacer",
+    desc: "Mostrar en el panel la probabilidad de éxito según la documentación adjuntada (como % o nivel alto/medio/bajo). Dar feedback automático cuando falte un mandatorio o haya un error detectable." },
+  { stream: 3, quarter: "Q3", key: null, title: "US7 — Motivo del banco + notificación de resultado multi-canal", status: "Por hacer",
+    desc: "Detallar en el panel la causa del rechazo o del éxito con el motivo del banco. Notificar el resultado por panel, WhatsApp y email. Informar si el pago pasó por 3DS Smart." }
 ];
 
 // ============================================================================
@@ -487,12 +550,14 @@ function escapeHtml(s) {
 
 function renderCard(item) {
   const sc = STATUS_TO_CLASS[item.status] || "todo";
-  const searchText = ((item.key || "") + " " + item.title + " " + item.status).toLowerCase();
+  const searchText = ((item.key || "") + " " + item.title + " " + item.status + " " + (item.desc || "")).toLowerCase();
   const keyLink = item.key
     ? `<a href="https://conekta.atlassian.net/browse/${item.key}" target="_blank" onclick="event.stopPropagation()">${item.key}</a>`
     : `<span>— ticket por crear</span>`;
+  const tooltipAttr = item.desc ? `data-tooltip="${escapeHtml(item.desc)}"` : "";
   return `
     <div class="card ${sc}"
+         ${tooltipAttr}
          data-stream="${item.stream}"
          data-status="${sc}"
          data-search="${escapeHtml(searchText)}"
