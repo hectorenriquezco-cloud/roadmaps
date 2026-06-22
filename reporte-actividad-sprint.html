@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Actividad por sprint — José Cedrón (CRD)</title>
+<style>
+  :root{
+    --ground:#F7F8FA;
+    --panel:#FFFFFF;
+    --text:#1B2733;
+    --muted:#5C6B7A;
+    --faint:#8A97A4;
+    --hair:#DCE1E7;
+    --accent:#2F6F6A;
+    --accent-2:#B5742E;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--ground);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    margin:0;
+    padding:48px 20px 80px;
+  }
+  .doc{
+    max-width:880px;
+    margin:0 auto;
+  }
+  .tnum{font-variant-numeric:tabular-nums;}
+
+  /* ---- Header ---- */
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 14px;
+  }
+  h1{
+    font-size:34px;
+    font-weight:600;
+    letter-spacing:-.015em;
+    margin:0 0 6px;
+    line-height:1.1;
+  }
+  .subject{
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--muted);
+    margin:0;
+  }
+  .rule{
+    height:2px;
+    background:var(--text);
+    margin:22px 0 0;
+  }
+
+  /* ---- Meta band ---- */
+  .meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:28px;
+    padding:18px 0 0;
+    border-bottom:1px solid var(--hair);
+    margin-bottom:34px;
+  }
+  .meta div{min-width:120px;}
+  .meta dt{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--faint);
+    margin:0 0 4px;
+  }
+  .meta dd{
+    margin:0;
+    font-size:14px;
+    color:var(--text);
+  }
+
+  /* ---- Summary figures ---- */
+  .figures{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--hair);
+    border:1px solid var(--hair);
+    margin-bottom:44px;
+  }
+  .fig{
+    background:var(--panel);
+    padding:24px 26px;
+  }
+  .fig .lbl{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 12px;
+  }
+  .fig .num{
+    font-size:52px;
+    font-weight:600;
+    letter-spacing:-.03em;
+    line-height:.95;
+  }
+  .fig.closed .num{color:var(--accent);}
+  .fig.open .num{color:var(--accent-2);}
+  .fig .sub{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:10px;
+  }
+  .fig .pts{
+    display:inline-block;
+    margin-top:14px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text);
+    border-top:1px solid var(--hair);
+    padding-top:10px;
+  }
+  .fig .pts b{font-weight:600;}
+
+  /* ---- Section ---- */
+  section{margin-bottom:46px;}
+  .shead{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    border-bottom:2px solid var(--text);
+    padding-bottom:8px;
+    margin-bottom:0;
+  }
+  .shead h2{
+    font-size:18px;
+    font-weight:600;
+    letter-spacing:-.01em;
+    margin:0;
+  }
+  .shead .count{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--muted);
+    margin-left:auto;
+  }
+
+  /* ---- Table ---- */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+  }
+  thead th{
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--faint);
+    text-align:left;
+    font-weight:500;
+    padding:12px 10px 8px;
+    border-bottom:1px solid var(--hair);
+  }
+  th.r,td.r{text-align:right;}
+  tbody td{
+    padding:11px 10px;
+    border-bottom:1px solid var(--hair);
+    vertical-align:top;
+  }
+  tbody tr:hover{background:#F0F3F6;}
+  .grp td{
+    background:#EEF2F4;
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:8px 10px;
+    border-bottom:1px solid var(--hair);
+  }
+  .key a{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--accent);
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .key a:hover,.key a:focus{text-decoration:underline;}
+  .type{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+  .type.sub{color:var(--faint);}
+  .path{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text);
+    white-space:nowrap;
+  }
+  .path .o{color:var(--faint);}
+  .path.carry{color:var(--accent-2);}
+  .pts-cell{
+    font-family:var(--mono);
+    font-variant-numeric:tabular-nums;
+  }
+  .title{color:var(--text);}
+  td.sub-row .title{color:var(--muted);font-size:13px;}
+  .chip{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.04em;
+    padding:2px 8px;
+    border:1px solid var(--hair);
+    border-radius:2px;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+  .chip.qa{border-color:#D9C3A0;color:#8a5e22;background:#FBF4E9;}
+  .chip.blk{border-color:#D9B3A0;color:#a04e2a;background:#FBEDE7;}
+
+  /* ---- Footnote ---- */
+  .notes{
+    margin-top:8px;
+    border-top:1px solid var(--hair);
+    padding-top:20px;
+    font-size:12px;
+    color:var(--muted);
+    line-height:1.65;
+  }
+  .notes .eyebrow{margin-bottom:10px;}
+  .notes ul{margin:0;padding-left:18px;}
+  .notes li{margin-bottom:5px;}
+  .legend{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--faint);
+    margin-top:14px;
+  }
+
+  @media (max-width:640px){
+    body{padding:32px 14px 60px;}
+    h1{font-size:27px;}
+    .figures{grid-template-columns:1fr;}
+    .fig .num{font-size:44px;}
+    .scroll{overflow-x:auto;}
+    table{min-width:560px;}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <header>
+    <p class="eyebrow">Reporte Jira · Proyecto Cards (CRD)</p>
+    <h1>Actividad por sprint</h1>
+    <p class="subject">José Cedrón · nicolas.cedron@conekta.com</p>
+    <div class="rule"></div>
+  </header>
+
+  <dl class="meta">
+    <div>
+      <dt>Periodo</dt>
+      <dd>Q2-2026</dd>
+    </div>
+    <div>
+      <dt>Sprints incluidos</dt>
+      <dd>Sprint 10 · Sprint 11</dd>
+    </div>
+    <div>
+      <dt>Sprint 10</dt>
+      <dd class="tnum">18–29 may 2026</dd>
+    </div>
+    <div>
+      <dt>Sprint 11</dt>
+      <dd class="tnum">01–12 jun 2026</dd>
+    </div>
+    <div>
+      <dt>Excluido</dt>
+      <dd>Sprint especial (en curso)</dd>
+    </div>
+  </dl>
+
+  <div class="figures">
+    <div class="fig closed">
+      <p class="lbl">Tareas cerradas</p>
+      <div class="num tnum">27</div>
+      <p class="sub">10 historias/tareas · 17 subtareas</p>
+      <span class="pts">Story points: <b class="tnum">19.5</b></span>
+    </div>
+    <div class="fig open">
+      <p class="lbl">No terminadas dentro del sprint comprometido</p>
+      <div class="num tnum">12</div>
+      <p class="sub">5 historias/tareas · 7 subtareas</p>
+      <span class="pts">Story points abiertos: <b class="tnum">15.5</b></span>
+    </div>
+  </div>
+
+  <!-- ===================== CERRADAS ===================== -->
+  <section>
+    <div class="shead">
+      <h2>Tareas cerradas</h2>
+      <span class="count tnum">27 ítems · 19.5 pts</span>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:84px;">Clave</th>
+            <th style="width:78px;">Tipo</th>
+            <th style="width:150px;">Origen → Cierre</th>
+            <th class="r" style="width:46px;">Pts</th>
+            <th>Título</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="grp"><td colspan="5">Cerradas en Sprint 10 — 5 ítems · 9.5 pts</td></tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1335" target="_blank" rel="noopener">CRD-1335</a></td>
+            <td class="type">Tarea</td>
+            <td class="path">S10</td>
+            <td class="r pts-cell">0.5</td>
+            <td class="title">Habilitar Google Pay - Ola 3 (25 de Mayo)</td>
+          </tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1667" target="_blank" rel="noopener">CRD-1667</a></td>
+            <td class="type">Tarea</td>
+            <td class="path">S10</td>
+            <td class="r pts-cell">2</td>
+            <td class="title">[AT&amp;T] notificar payment source id en webhooks / evento del component</td>
+          </tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1495" target="_blank" rel="noopener">CRD-1495</a></td>
+            <td class="type">Tarea</td>
+            <td class="path carry"><span class="o">Q2·S9 →</span> S10</td>
+            <td class="r pts-cell">2</td>
+            <td class="title">Google Pay en Checkout embebido - Documentación / Prueba</td>
+          </tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1600" target="_blank" rel="noopener">CRD-1600</a></td>
+            <td class="type">Tarea</td>
+            <td class="path carry"><span class="o">Q2·S9 →</span> S10</td>
+            <td class="r pts-cell">3</td>
+            <td class="title">Depuración de error de verificación de dominio Apple Pay - Paralax Labs S de RL</td>
+          </tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1602" target="_blank" rel="noopener">CRD-1602</a></td>
+            <td class="type">Tarea</td>
+            <td class="path carry"><span class="o">Q2·S9 →</span> S10</td>
+            <td class="r pts-cell">2</td>
+            <td class="title">Validación Documentación - Integración Botón Google Pay (error 500) API</td>
+          </tr>
+
+          <tr class="grp"><td colspan="5">Cerradas en Sprint 11 — 22 ítems · 10 pts</td></tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1663" target="_blank" rel="noopener">CRD-1663</a></td>
+            <td class="type">Historia</td>
+            <td class="path">S11</td>
+            <td class="r pts-cell">2</td>
+            <td class="title">Habilitar automáticamente Apple Pay si certificado/dominio está validado en panel</td>
+          </tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1681" target="_blank" rel="noopener">CRD-1681</a></td>
+            <td class="type">Historia</td>
+            <td class="path">S11</td>
+            <td class="r pts-cell">3</td>
+            <td class="title">Habilitar Google Pay sandbox en PRD sin merchantId aprobado</td>
+          </tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1752" target="_blank" rel="noopener">CRD-1752</a></td>
+            <td class="type">Tarea</td>
+            <td class="path">S11</td>
+            <td class="r pts-cell">3</td>
+            <td class="title">Implementar ApplePay desencriptado para toku</td>
+          </tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1759" target="_blank" rel="noopener">CRD-1759</a></td>
+            <td class="type">Historia</td>
+            <td class="path">S11</td>
+            <td class="r pts-cell">—</td>
+            <td class="title">Habilitar ola 4 - Checkout Embebido y API</td>
+          </tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1233" target="_blank" rel="noopener">CRD-1233</a></td>
+            <td class="type">Tarea</td>
+            <td class="path carry"><span class="o">Q1·S3 →</span> S11</td>
+            <td class="r pts-cell">2</td>
+            <td class="title">Remover Código Deprecado de Certificados en Variables de Entorno</td>
+          </tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1703" target="_blank" rel="noopener">CRD-1703</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[01] Agregar configuración para llave privada de TEST</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1699" target="_blank" rel="noopener">CRD-1699</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[02] Refactorizar GooglePayDecryptionService para dos recipients (TEST + PRODUCTION)</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1700" target="_blank" rel="noopener">CRD-1700</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[03] Modificar endpoint POST /google-pay/decrypt para aceptar parámetro de entorno</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1705" target="_blank" rel="noopener">CRD-1705</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[04] Setup inicial del test suite (Java/Spring)</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1701" target="_blank" rel="noopener">CRD-1701</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[05] Tests unitarios del GooglePayDecryptionService (dual-recipient)</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1702" target="_blank" rel="noopener">CRD-1702</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[06] Tests del GooglePayDecryptController con MockMvc (header X-Livemode)</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1704" target="_blank" rel="noopener">CRD-1704</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[07] Actualizar deployment configs (staging/production + Parameter Store)</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1706" target="_blank" rel="noopener">CRD-1706</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[08] Cliente HTTP de Google Pay envía livemode</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1707" target="_blank" rel="noopener">CRD-1707</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[09] Propagar livemode desde el caller del cliente Google Pay</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1708" target="_blank" rel="noopener">CRD-1708</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[10] Specs del cliente HTTP de Google Pay en payments-api</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1709" target="_blank" rel="noopener">CRD-1709</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[11] Specs del caller del cliente Google Pay (service)</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1710" target="_blank" rel="noopener">CRD-1710</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[12] Validación e2e en STG y PRD con tarjetas de prueba</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1754" target="_blank" rel="noopener">CRD-1754</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">1. Flag apple_pay_accept_decrypted_data por compañía en Company</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1755" target="_blank" rel="noopener">CRD-1755</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">2. Aceptar y validar decryptedPaymentData en sanitizers del charge</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1756" target="_blank" rel="noopener">CRD-1756</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">3. Servicio decoder del token merchant-decrypted</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1757" target="_blank" rel="noopener">CRD-1757</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">4. Integrar rama merchant-decrypted al camino Apple Pay → acquirer</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1758" target="_blank" rel="noopener">CRD-1758</a></td><td class="type sub">Subtarea</td><td class="path">S11</td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">5. Tests E2E, casos borde y endurecimiento PCI/logging</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== NO TERMINADAS ===================== -->
+  <section>
+    <div class="shead">
+      <h2>No terminadas dentro del sprint comprometido</h2>
+      <span class="count tnum">12 ítems</span>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:84px;">Clave</th>
+            <th style="width:78px;">Tipo</th>
+            <th style="width:84px;">Origen</th>
+            <th style="width:124px;">Estado actual</th>
+            <th class="r" style="width:46px;">Pts</th>
+            <th>Título</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1331" target="_blank" rel="noopener">CRD-1331</a></td>
+            <td class="type">Tarea</td>
+            <td class="path">Q2·S11</td>
+            <td><span class="chip">En revisión</span></td>
+            <td class="r pts-cell">2</td>
+            <td class="title">Si es redirected o payment link que nazca con Google Pay habilitado</td>
+          </tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1483" target="_blank" rel="noopener">CRD-1483</a></td>
+            <td class="type">Tarea</td>
+            <td class="path">Q1·S6</td>
+            <td><span class="chip">Por hacer</span></td>
+            <td class="r pts-cell">7</td>
+            <td class="title">Slim down Rails footprint en payments-safevault</td>
+          </tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1570" target="_blank" rel="noopener">CRD-1570</a></td>
+            <td class="type">Tarea</td>
+            <td class="path">Q2·S8</td>
+            <td><span class="chip">Por hacer</span></td>
+            <td class="r pts-cell">0.5</td>
+            <td class="title">Actualizar DevCenter con instrucciones correctas para carga de certificados Apple Pay</td>
+          </tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1609" target="_blank" rel="noopener">CRD-1609</a></td>
+            <td class="type">Tarea</td>
+            <td class="path">Q2·S9</td>
+            <td><span class="chip blk">Bloqueada</span></td>
+            <td class="r pts-cell">2</td>
+            <td class="title">[F4.1] ct-checkout-bff: limpieza filterInstallmentOptions y montos mínimos hardcoded</td>
+          </tr>
+          <tr>
+            <td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1633" target="_blank" rel="noopener">CRD-1633</a></td>
+            <td class="type">Tarea</td>
+            <td class="path">Q2·S9</td>
+            <td><span class="chip qa">Control de calidad</span></td>
+            <td class="r pts-cell">4</td>
+            <td class="title">Soportar múltiples certificados de Apple Pay por comercio</td>
+          </tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1654" target="_blank" rel="noopener">CRD-1654</a></td><td class="type sub">Subtarea</td><td class="path">Q2·S9</td><td><span class="chip qa">Control de calidad</span></td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[payments-api] Multi-cert: data model + vault service + endpoints</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1655" target="_blank" rel="noopener">CRD-1655</a></td><td class="type sub">Subtarea</td><td class="path">Q2·S9</td><td><span class="chip qa">Control de calidad</span></td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[payments-api] DELETE /v1/apple_pay/domain/:domain + DomainRemover</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1656" target="_blank" rel="noopener">CRD-1656</a></td><td class="type sub">Subtarea</td><td class="path">Q2·S9</td><td><span class="chip qa">Control de calidad</span></td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[ct-panel-fe] UI multi-cert: lista con badge activo + botón Activar</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1657" target="_blank" rel="noopener">CRD-1657</a></td><td class="type sub">Subtarea</td><td class="path">Q2·S9</td><td><span class="chip qa">Control de calidad</span></td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[ct-panel-fe] UI eliminar dominio (botón + modal + wiring)</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1659" target="_blank" rel="noopener">CRD-1659</a></td><td class="type sub">Subtarea</td><td class="path">Q2·S9</td><td><span class="chip qa">Control de calidad</span></td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[payments-api] Backfill multi-cert: migrar tokens existentes</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1661" target="_blank" rel="noopener">CRD-1661</a></td><td class="type sub">Subtarea</td><td class="path">Q2·S9</td><td><span class="chip qa">Control de calidad</span></td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[ct-panel-backend] Ocelot multi-cert: rutas GET certificates y POST activate</span></td></tr>
+          <tr><td class="key"><a href="https://conekta.atlassian.net/browse/CRD-1662" target="_blank" rel="noopener">CRD-1662</a></td><td class="type sub">Subtarea</td><td class="path">Q2·S9</td><td><span class="chip qa">Control de calidad</span></td><td class="r pts-cell">—</td><td class="sub-row"><span class="title">[ct-panel-backend] Ocelot: ruta DELETE apple_pay/domain</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="notes">
+    <p class="eyebrow">Notas</p>
+    <ul>
+      <li>Fuente: Jira — proyecto Cards (CRD), board 478. Asignado a nicolas.cedron@conekta.com.</li>
+      <li>«Cerrada» = ítem en estado de categoría <em>Listo</em>, con fecha de resolución dentro de la ventana del sprint.</li>
+      <li>«No terminada dentro del sprint comprometido» = ítem que pertenecía al sprint y no estaba en estado <em>Listo</em> al cierre de ese sprint.</li>
+      <li>Story points se registran únicamente en historias y tareas; las subtareas no llevan puntos.</li>
+      <li>«Origen → Cierre» indica el sprint donde se creó el ítem y el sprint en que se cerró.</li>
+    </ul>
+    <p class="legend">Sprints: Q1·S3–S6 (feb–abr) · Q2·S7–S9 (abr–may) · S10 (18–29 may) · S11 (01–12 jun) · Generado 22 jun 2026</p>
+  </div>
+
+</div>
+
+</body>
+</html>
